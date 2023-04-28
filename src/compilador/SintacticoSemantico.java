@@ -108,7 +108,7 @@ public class SintacticoSemantico {
         programa(new Atributos());
         
     }
-
+//prueba1
     //--------------------------------------------------------------------------
 
     private void emparejar(String t) {
