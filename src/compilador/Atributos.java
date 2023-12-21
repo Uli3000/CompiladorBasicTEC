@@ -10,5 +10,10 @@ package compilador;
  */
 public class Atributos {
  String tipo = "";
-    String h    = "";   
+ String h    = ""; 
+ String verdadero = "";
+ String falso = "";
+ String comienzo = "";
+ String siguiente = "";
+
 }

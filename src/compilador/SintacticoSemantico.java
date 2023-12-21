@@ -108,7 +108,7 @@ public class SintacticoSemantico {
         programa(new Atributos());
         
     }
-//prueba1
+//prueba2
     //--------------------------------------------------------------------------
 
     private void emparejar(String t) {
@@ -666,10 +666,13 @@ public class SintacticoSemantico {
                     
                     
                     if(!varNoDeclarada.equals("") && !varNoDeclarada2.equals(""))
-                        cmp.me.error( cmp.ERR_SEMANTICO, "Variables no declaradas "+varNoDeclarada +"  "+varNoDeclarada2+ " {20} "+
+                        cmp.me.error( cmp.ERR_SEMANTICO, "Variables no declaradas "+varNoDeclarada +" y "+varNoDeclarada2+ " {20} "+
                     "No.Linea: " + cmp.be.preAnalisis.numLinea );
                     else    if(!varNoDeclarada.equals("")  )
                     cmp.me.error( cmp.ERR_SEMANTICO, "Variable no declarada "+varNoDeclarada+ " {20} "+
+                    "No.Linea: " + cmp.be.preAnalisis.numLinea );
+                    else    if(!varNoDeclarada2.equals("")  )
+                    cmp.me.error( cmp.ERR_SEMANTICO, "Variable no declarada "+varNoDeclarada2+ " {20} "+
                     "No.Linea: " + cmp.be.preAnalisis.numLinea );
                     else 
                     cmp.me.error( cmp.ERR_SEMANTICO, "Tipos y expresiones no concuerdan {20} "+
@@ -1116,7 +1119,7 @@ public class SintacticoSemantico {
            
             tipo=cmp.ts.buscaTipo(cmp.be.preAnalisis.entrada);
             if(tipo == "" )
-            if(cmp.be.preAnalisis.complex != "literal" && cmp.be.preAnalisis.complex != "num" && cmp.be.preAnalisis.complex != "num.num")
+            if(cmp.be.preAnalisis.complex != "literal" && cmp.be.preAnalisis.complex != "num" && cmp.be.preAnalisis.complex != "num.num" )
              varNoDeclarada=cmp.be.preAnalisis.lexema;
 
             factor    ( factor );
@@ -1201,12 +1204,15 @@ public class SintacticoSemantico {
                    factor.tipo=getRng(cmp.ts.buscaTipo(id.entrada));
                }       
 
-               else  if ( factor_prima.tipo.equals( VACIO ) ) {
+               else  if ( factor_prima.tipo.equals( VACIO ) && (!cmp.ts.buscaTipo(id.entrada).equals(""))) {
                     factor.tipo = cmp.ts.buscaTipo( id.entrada );
                 } else if (tiposFunciones(cmp.ts.buscaTipo(id.entrada), factor_prima.tipo))//(getDmno(cmp.ts.buscaTipo( id.entrada ) ).equals( factor_prima.tipo ) )
                     factor.tipo = getRng(cmp.ts.buscaTipo( id.entrada ) );
                 else {
                     factor.tipo = ERROR_TIPO;
+                    if(cmp.ts.buscaTipo(id.entrada).equals(""))
+                        cmp.me.error(cmp.ERR_SEMANTICO, "Variable no declarada "+id.lexema);
+                    else
                     cmp.me.error( cmp.ERR_SEMANTICO, "ERROR. El tipo de dato de factor"
                             + " no coindice con el tipo de dato del id  {42}" );
                 }

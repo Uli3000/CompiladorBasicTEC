@@ -32,6 +32,7 @@ import general.ICompilador;
 import general.IUListener;
 import general.Linea_BE;
 import general.Linea_TS;
+import java.util.ArrayList;
 
 public class Compilador implements ICompilador {
 
@@ -45,7 +46,9 @@ public class Compilador implements ICompilador {
         GenCodigoObj        gco    = new GenCodigoObj        ( this );
         
 	IUListener iuListener = null;
-
+      //  GenCodigoInt        gci    = new GenCodigoInt ( this );
+        Cuadruplos          cua    = new Cuadruplos   ( this );
+        int nt;
 	//--------------------------------------------------------------------------
 	// Constructor de Default
 	
@@ -166,5 +169,21 @@ public class Compilador implements ICompilador {
     }
     
     //--------------------------------------------------------------------------
+
+    @Override
+    public String[][] getTablaCuadruplos() {
+        ArrayList<Cuadruplo> cuadruplos = cua.getCuadruplos();
+            String [][] arrCuadruplos = new String[cua.getTamaño()][4];
+            
+            for (int i = 0; i < cua.getTamaño(); i++) {
+                arrCuadruplos [ i ] [ 0 ] = cuadruplos.get ( i ).op;
+                arrCuadruplos [ i ] [ 1 ] = cuadruplos.get ( i ).arg1;
+                arrCuadruplos [ i ] [ 2 ] = cuadruplos.get ( i ).arg2;
+                arrCuadruplos [ i ] [ 3 ] = cuadruplos.get ( i ).resultado;
+                
+            }
+            
+            return arrCuadruplos;
+    }
     
 }
